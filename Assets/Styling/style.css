@@ -45,4 +45,13 @@
     }
     .btn {
       margin-top: 6px;
+      background-color:#004d00;
+      border-color: white;
       }
+    .btn:hover{
+      background-color: #343a40;
+      border-color: #004d00;
+    }
+    .marketwatch {
+      color: #343a40;
+    }
