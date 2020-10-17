@@ -1,42 +1,57 @@
-$(document).ready(function () {
-  // JS Variables
+$(document).ready(function(){
+    // JS Variables
 
-  var stockLevel = "";
-  var stockName = "";
-  var timePeriod = "";
+    var stockLevel = "";
+    var stockName = "";
+    var timePeriod = "";
 
-  // event listener
-  $("#stockSubmitBtn").on("click", function (event) {
-    event.preventDefault();
-    stockLevel = $(this).parent().find("#stockPoint").val();
-    stockName = $(this).parent().find("#stockInput").val();
-    timePeriod = $(this).parent().find("#stockTime").val();
 
-    if (timePeriod === "1 Month") {
-      var timeReplace = timePeriod.replace("1 Month", "1m");
-    } else if (timePeriod === "3 Month") {
-      timeReplace = timePeriod.replace("3 Month", "3m");
-    } else if (timePeriod === "6 Month") {
-      timeReplace = timePeriod.replace("6 Month", "6m");
-    } else if (timePeriod === "1 Year") {
-      timeReplace = timePeriod.replace("1 Year", "1y");
-    }
 
-    console.log(timeReplace);
+    // event listener
+    $("#stockSubmitBtn").on("click", function(event){
+        event.preventDefault()
+        stockLevel = $(this).parent().find("#stockPoint").val();
+        stockName = $(this).parent().find("#stockInput").val();
+        timePeriod = $(this).parent().find("#stockTime").val();
 
-    covidAPI();
 
-    console.log(stockName);
-    console.log(stockLevel);
-    stockAPI(timeReplace);
-  });
+        if(timePeriod === "1 Month"){
+            var timeReplace = timePeriod.replace("1 Month", "1m")
+        }else if (timePeriod === "3 Month"){
+            timeReplace = timePeriod.replace("3 Month", "3m")
+        }else if (timePeriod === "6 Month"){
+            timeReplace = timePeriod.replace("6 Month", "6m")
+        }else if (timePeriod === "1 Year"){
+            timeReplace = timePeriod.replace("1 Year", "1y")
+        }
+
+        console.log(timeReplace)
+
+
+        covidAPI();
+
+
+
+        console.log(stockName)
+        console.log(stockLevel)
+        stockAPI(timeReplace)
+    })
+  
+    // modal
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+
+
 
   // iex api
 
-  function stockAPI(userStock) {
+  function stockAPI(userStock, userTime) {
     var stocksUrl =
-      "https://sandbox.iexapis.com/stable/stock/AAPL/chart/" +
+      "https://sandbox.iexapis.com/stable/stock/" +
       userStock +
+      "/chart/" +
+      userTime +
       "/?token=Tsk_91ce3ae3fe794e6db9ebe0705266abf6";
 
     $.ajax({
@@ -48,6 +63,10 @@ $(document).ready(function () {
         // console.log(response[i].date +" $"+ response[i].close);
         if (stockLevel === "Open") {
           console.log(response[i].open);
+        } else if (stockLevel === "Closing") {
+          console.log(response[i].close);
+        } else if (stockLevel === "High") {
+          console.log(response[i].high);
         }
       }
     });
@@ -131,7 +150,6 @@ $(document).ready(function () {
   var ctxOne = $("#ctxOne");
   var ctxTwo = $("#ctxTwo");
 
-  displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxOne);
   displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
 
   function displayGraph(data, chartNumber) {
@@ -167,19 +185,6 @@ $(document).ready(function () {
             {
               gridLines: {
                 color: "gray",
-              },
-              ticks: {
-                fontColor: "whitesmoke",
-              },
-            },
-          ],
-          xAxes: [
-            {
-              gridLines: {
-                display: false,
-              },
-              ticks: {
-                fontColor: "whitesmoke",
               },
             },
           ],
