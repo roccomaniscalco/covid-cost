@@ -140,4 +140,50 @@ $(document).ready(function(){
 
     // stockAPI();
 
+    // createGraph
+    var ctxOne = $("#ctxOne");
+    var ctxTwo = $("#ctxTwo");
+
+    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxTwo);
+
+    function displayGraph(data,chartNumber) {
+      var myChart = new Chart(chartNumber, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              data: data,
+              backgroundColor: "#69ea85",
+              borderColor: "#1abe3e",
+              borderWidth: 5,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "gray",
+                },
+              },
+            ],
+          },
+        },
+      });
+    }
 })
