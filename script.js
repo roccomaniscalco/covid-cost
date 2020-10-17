@@ -15,6 +15,7 @@ $(document).ready(function(){
         stockName = $(this).parent().find("#stockInput").val();
         timePeriod = $(this).parent().find("#stockTime").val();
 
+
         covidAPI();
 
 
@@ -23,6 +24,7 @@ $(document).ready(function(){
         console.log(stockLevel)
         stockAPI(timePeriod)
         
+
 
     })
     
@@ -124,11 +126,6 @@ $(document).ready(function(){
     }
 
     // stockAPI();
-
-
-    // covidAPI();
-
-
 
 
 })
