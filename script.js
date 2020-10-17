@@ -60,6 +60,10 @@ $(document).ready(function(){
                 // console.log(response[i].date +" $"+ response[i].close);
                 if(stockLevel === "Open"){
                     console.log(response[i].open)
+                }else if(stockLevel === "Closing"){
+                    console.log(response[i].close)
+                }else if(stockLevel === "High"){
+                    console.log(response[i].high)
                 }
             }
         })
