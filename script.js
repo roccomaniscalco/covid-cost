@@ -141,12 +141,13 @@ $(document).ready(function(){
     // stockAPI();
 
     // createGraph
-    var ctx = $("#ctx");
+    var ctxOne = $("#ctxOne");
+    var ctxTwo = $("#ctxTwo");
 
-    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12]);
+    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxTwo);
 
-    function displayGraph(data) {
-      var myChart = new Chart(ctx, {
+    function displayGraph(data,chartNumber) {
+      var myChart = new Chart(chartNumber, {
         type: "line",
         data: {
           labels: [
