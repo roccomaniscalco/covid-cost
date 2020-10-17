@@ -2,9 +2,10 @@
 $(document).ready(function(){
     // JS Variables
 
-    stockLevel = "";
-    stockName = "";
-    timePeriod = "";
+    var stockLevel = "";
+    var stockName = "";
+    var timePeriod = "";
+
 
 
     // event listener
@@ -13,7 +14,18 @@ $(document).ready(function(){
         stockLevel = $(this).parent().find("#stockPoint").val();
         stockName = $(this).parent().find("#stockInput").val();
         timePeriod = $(this).parent().find("#stockTime").val();
+
+
+        covidAPI();
+
+
+        console.log(stockName)
+        console.log(timePeriod)
+        console.log(stockLevel)
+        stockAPI(timePeriod)
         
+
+
     })
     
     
@@ -22,39 +34,98 @@ $(document).ready(function(){
     
     // iex api
 
-    function stockAPI(){
-        var stock = ["APPL","GUSH","SNAP","IBM"];
-        var range = ["1m","3m","6m","1y"];
-        var stocksUrl = "https://cloud.iexapis.com/stable/stock/"+ stock[1] +"/chart/"+range[2]+"/?token=pk_daa92b10b8a84ee7bf59805aa6b96c62";
+    function stockAPI(userStock){
+
+        var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tpk_66abe4f9dd4941ad8eee2c8005748eb3 ";
             
         $.ajax({
             url: stocksUrl,
-            method: "GET"
+            method: "GET",
         }).then(function(response){
             console.log(response);
             for(i=0;i<response.length;i++){
-                console.log(response[i].date +" $"+ response[i].close);
+                // console.log(response[i].date +" $"+ response[i].close);
+                if(stockLevel === "Open"){
+                    console.log(response[i].date + " $" + response[i].open.toString())
+                }else if(stockLevel === "Closing"){
+                    console.log(response[i].date + " $" + response[i].close.toString())
+                }else if(stockLevel === "High"){
+                    console.log(response[i].date + " $" + response[i].high.toString())
+                }
             }
         })
     }
     
     function covidAPI(){
+        
         var settings = {
             "url": "https://api.covid19api.com/total/country/united-states/status/confirmed?cases",
             "method": "GET",
             "timeout": 0,
         };
     
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                for(i=0;i<response.length;i++){
-                    console.log(response[i].Date + ": "+ response[i].Cases + " Cases");
+        $.ajax(settings).done(function (response) {
+            // console.log(response);
+
+            function oneMonth(){
+                var month = [];
+                var monthData = [];
+                for (i=1;i<=30;i++){
+                    month.push(response.length -i);
                 }
-            });
+                for (i=0;i<month.length;i++){
+                    monthData.push(response[month[i]].Cases); 
+                }
+                console.log(monthData.reverse());
+            }
+            function threeMonths(){
+                var three = [];
+                var threeData = [];
+                for (i=1;i<=90;i++){
+                    three.push(response.length -i);
+                }
+                for (i=0;i<three.length;i++){
+                    threeData.push(response[three[i]].Cases); 
+                }
+                console.log(threeData.reverse());
+            }
+            function sixMonths(){
+                var six = [];
+                var sixData = [];
+                for (i=1;i<=180;i++){
+                    six.push(response.length -i);
+                }
+                for (i=0;i<six.length;i++){
+                    sixData.push(response[six[i]].Cases); 
+                }
+                console.log(sixData.reverse());
+            }
+            function oneYear(){
+                var year = [];
+                for (i=0;i<response.length;i++){
+                    year.push(response[i].Cases); 
+                }
+                console.log(year);
+            }
+
+            if (timePeriod == "1 Month") {
+                oneMonth();
+            } else if (timePeriod == "3 Month") {
+                threeMonths();
+            } else if (timePeriod == "6 Month") {
+                sixMonths();
+            } else {
+                oneYear();
+            }
+            
+        
+            
+            
+               
+        });
     }
 
-    stockAPI();
+    // stockAPI();
 
-    covidAPI();
 
 })
