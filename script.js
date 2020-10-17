@@ -150,6 +150,7 @@ $(document).ready(function(){
   var ctxOne = $("#ctxOne");
   var ctxTwo = $("#ctxTwo");
 
+  displayGraph([10, 9, 13, 4, 12, 13, 2, 18, 5, 10, 2, 6], ctxOne);
   displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
 
   function displayGraph(data, chartNumber) {
@@ -186,8 +187,21 @@ $(document).ready(function(){
               gridLines: {
                 color: "gray",
               },
+              ticks : {
+                fontColor: "whitesmoke"
+              }
             },
           ],
+          xAxes: [
+            {
+              gridLines: {
+                  display: false
+                },
+              ticks : {
+                  fontColor: "whitesmoke"
+                },
+            },  
+          ]
         },
       },
     });
