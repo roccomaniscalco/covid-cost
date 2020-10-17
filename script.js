@@ -127,5 +127,49 @@ $(document).ready(function(){
 
     // stockAPI();
 
+    // createGraph
+    var ctx = $("#ctx");
 
+    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12]);
+
+    function displayGraph(data) {
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              data: data,
+              backgroundColor: "#69ea85",
+              borderColor: "#1abe3e",
+              borderWidth: 5,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "gray",
+                },
+              },
+            ],
+          },
+        },
+      });
+    }
 })
