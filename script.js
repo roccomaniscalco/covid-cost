@@ -1,4 +1,25 @@
+
 $(document).ready(function(){
+    // JS Variables
+
+    stockLevel = "";
+    stockName = "";
+    timePeriod = "";
+
+
+    // event listener
+    $("#stockSubmitBtn").on("click", function(event){
+        event.preventDefault()
+        stockLevel = $(this).parent().find("#stockPoint").val();
+        stockName = $(this).parent().find("#stockInput").val();
+        timePeriod = $(this).parent().find("#stockTime").val();
+        
+    })
+    
+    
+    
+    
+    
     // iex api
 
     function stockAPI(){
