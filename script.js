@@ -40,6 +40,10 @@ $(document).ready(function(){
 
 
     })
+    // modal
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
     
     
     
