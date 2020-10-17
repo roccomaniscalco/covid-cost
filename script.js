@@ -1,35 +1,48 @@
-$(document).ready(function () {
-  // JS Variables
+$(document).ready(function(){
+    // JS Variables
 
-  var stockLevel = "";
-  var stockName = "";
-  var timePeriod = "";
+    var stockLevel = "";
+    var stockName = "";
+    var timePeriod = "";
 
-  // event listener
-  $("#stockSubmitBtn").on("click", function (event) {
-    event.preventDefault();
-    stockLevel = $(this).parent().find("#stockPoint").val();
-    stockName = $(this).parent().find("#stockInput").val();
-    timePeriod = $(this).parent().find("#stockTime").val();
 
-    if (timePeriod === "1 Month") {
-      var timeReplace = timePeriod.replace("1 Month", "1m");
-    } else if (timePeriod === "3 Month") {
-      timeReplace = timePeriod.replace("3 Month", "3m");
-    } else if (timePeriod === "6 Month") {
-      timeReplace = timePeriod.replace("6 Month", "6m");
-    } else if (timePeriod === "1 Year") {
-      timeReplace = timePeriod.replace("1 Year", "1y");
-    }
 
-    console.log(timeReplace);
+    // event listener
+    $("#stockSubmitBtn").on("click", function(event){
+        event.preventDefault()
+        stockLevel = $(this).parent().find("#stockPoint").val();
+        stockName = $(this).parent().find("#stockInput").val();
+        timePeriod = $(this).parent().find("#stockTime").val();
 
-    covidAPI();
 
-    console.log(stockName);
-    console.log(stockLevel);
-    stockAPI(stockName, timeReplace);
-  });
+        if(timePeriod === "1 Month"){
+            var timeReplace = timePeriod.replace("1 Month", "1m")
+        }else if (timePeriod === "3 Month"){
+            timeReplace = timePeriod.replace("3 Month", "3m")
+        }else if (timePeriod === "6 Month"){
+            timeReplace = timePeriod.replace("6 Month", "6m")
+        }else if (timePeriod === "1 Year"){
+            timeReplace = timePeriod.replace("1 Year", "1y")
+        }
+
+        console.log(timeReplace)
+
+
+        covidAPI();
+
+
+
+        console.log(stockName)
+        console.log(stockLevel)
+        stockAPI(timeReplace)
+    })
+  
+    // modal
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+
+
 
   // iex api
 
