@@ -14,10 +14,21 @@ $(document).ready(function(){
         stockName = $(this).parent().find("#stockInput").val();
         timePeriod = $(this).parent().find("#stockTime").val();
 
+        if(timePeriod === "1 Month"){
+            var timeReplace = timePeriod.replace("1 Month", "1m")
+        }else if (timePeriod === "3 Month"){
+            timeReplace = timePeriod.replace("3 Month", "3m")
+        }else if (timePeriod === "6 Month"){
+            timeReplace = timePeriod.replace("6 Month", "6m")
+        }else if (timePeriod === "1 Year"){
+            timeReplace = timePeriod.replace("1 Year", "1y")
+        }
+
+        console.log(timeReplace)
+
         console.log(stockName)
-        console.log(timePeriod)
         console.log(stockLevel)
-        stockAPI(timePeriod)
+        stockAPI(timeReplace)
         
     })
     
@@ -29,7 +40,7 @@ $(document).ready(function(){
 
     function stockAPI(userStock){
 
-        var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tpk_66abe4f9dd4941ad8eee2c8005748eb3 ";
+        var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tsk_91ce3ae3fe794e6db9ebe0705266abf6";
             
         $.ajax({
             url: stocksUrl,
@@ -39,11 +50,7 @@ $(document).ready(function(){
             for(i=0;i<response.length;i++){
                 // console.log(response[i].date +" $"+ response[i].close);
                 if(stockLevel === "Open"){
-                    console.log(response[i].date + " $" + response[i].open.toString())
-                }else if(stockLevel === "Closing"){
-                    console.log(response[i].date + " $" + response[i].close.toString())
-                }else if(stockLevel === "High"){
-                    console.log(response[i].date + " $" + response[i].high.toString())
+                    console.log(response[i].open)
                 }
             }
         })
