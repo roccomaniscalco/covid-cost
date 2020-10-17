@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     // JS Variables
 
@@ -36,158 +35,161 @@ $(document).ready(function(){
         console.log(stockName)
         console.log(stockLevel)
         stockAPI(timeReplace)
-        
-
-
     })
-    
-    
-    
-    
-    
-    // iex api
+  
+    // modal
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
 
-    function stockAPI(userStock){
 
-        var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tsk_91ce3ae3fe794e6db9ebe0705266abf6";
-            
-        $.ajax({
-            url: stocksUrl,
-            method: "GET",
-        }).then(function(response){
-            console.log(response);
-            for(i=0;i<response.length;i++){
-                // console.log(response[i].date +" $"+ response[i].close);
-                if(stockLevel === "Open"){
-                    console.log(response[i].open)
-                }else if(stockLevel === "Closing"){
-                    console.log(response[i].close)
-                }else if(stockLevel === "High"){
-                    console.log(response[i].high)
-                }
-            }
-        })
-    }
 
-    // covid API
-    function covidAPI(){
+  // iex api
 
-        // api link, with endpoint of cases per day
-        var settings = {
-            "url": "https://api.covid19api.com/total/country/united-states/status/confirmed?cases",
-            "method": "GET",
-            "timeout": 0,
-        };
-    
-        $.ajax(settings).done(function (response) {
-            
-            // pulls the amount of cases everyday for the last month
-            function oneMonth(){
-                var month = [];
-                var monthData = [];
-                for (i=1;i<=30;i++){
-                    month.push(response.length -i);
-                }
-                for (i=0;i<month.length;i++){
-                    monthData.push(response[month[i]].Cases); 
-                }
-                console.log(monthData.reverse());
-            }
+  function stockAPI(userStock, userTime) {
+    var stocksUrl =
+      "https://sandbox.iexapis.com/stable/stock/" +
+      userStock +
+      "/chart/" +
+      userTime +
+      "/?token=Tsk_91ce3ae3fe794e6db9ebe0705266abf6";
 
-            // pulls the amount of cases everyday for the last 3 months
-            function threeMonths(){
-                var three = [];
-                var threeData = [];
-                for (i=1;i<=90;i++){
-                    three.push(response.length -i);
-                }
-                for (i=0;i<three.length;i++){
-                    threeData.push(response[three[i]].Cases); 
-                }
-                console.log(threeData.reverse());
-            }
+    $.ajax({
+      url: stocksUrl,
+      method: "GET",
+    }).then(function (response) {
+      console.log(response);
+      for (i = 0; i < response.length; i++) {
+        // console.log(response[i].date +" $"+ response[i].close);
+        if (stockLevel === "Open") {
+          console.log(response[i].open);
+        } else if (stockLevel === "Closing") {
+          console.log(response[i].close);
+        } else if (stockLevel === "High") {
+          console.log(response[i].high);
+        }
+      }
+    });
+  }
 
-            // pulls the amount of cases everyday for the last 6 months
-            function sixMonths(){
-                var six = [];
-                var sixData = [];
-                for (i=1;i<=180;i++){
-                    six.push(response.length -i);
-                }
-                for (i=0;i<six.length;i++){
-                    sixData.push(response[six[i]].Cases); 
-                }
-                console.log(sixData.reverse());
-            }
+  // covid API
+  function covidAPI() {
+    // api link, with endpoint of cases per day
+    var settings = {
+      url:
+        "https://api.covid19api.com/total/country/united-states/status/confirmed?cases",
+      method: "GET",
+      timeout: 0,
+    };
 
-            // pulls data for all days of corona, starting on Jan 22, 2020 (first case)
-            function oneYear(){
-                var year = [];
-                for (i=0;i<response.length;i++){
-                    year.push(response[i].Cases); 
-                }
-                console.log(year);
-            }
-            
-            // depending on users choice in the dropdown, a timeframe function is ran
-            if (timePeriod == "1 Month") {
-                oneMonth();
-            } else if (timePeriod == "3 Month") {
-                threeMonths();
-            } else if (timePeriod == "6 Month") {
-                sixMonths();
-            } else {
-                oneYear();
-            }     
-        });
-    }
+    $.ajax(settings).done(function (response) {
+      // pulls the amount of cases everyday for the last month
+      function oneMonth() {
+        var month = [];
+        var monthData = [];
+        for (i = 1; i <= 30; i++) {
+          month.push(response.length - i);
+        }
+        for (i = 0; i < month.length; i++) {
+          monthData.push(response[month[i]].Cases);
+        }
+        console.log(monthData.reverse());
+      }
 
-    // stockAPI();
+      // pulls the amount of cases everyday for the last 3 months
+      function threeMonths() {
+        var three = [];
+        var threeData = [];
+        for (i = 1; i <= 90; i++) {
+          three.push(response.length - i);
+        }
+        for (i = 0; i < three.length; i++) {
+          threeData.push(response[three[i]].Cases);
+        }
+        console.log(threeData.reverse());
+      }
 
-    // createGraph
-    var ctxOne = $("#ctxOne");
-    var ctxTwo = $("#ctxTwo");
+      // pulls the amount of cases everyday for the last 6 months
+      function sixMonths() {
+        var six = [];
+        var sixData = [];
+        for (i = 1; i <= 180; i++) {
+          six.push(response.length - i);
+        }
+        for (i = 0; i < six.length; i++) {
+          sixData.push(response[six[i]].Cases);
+        }
+        console.log(sixData.reverse());
+      }
 
-    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxTwo);
+      // pulls data for all days of corona, starting on Jan 22, 2020 (first case)
+      function oneYear() {
+        var year = [];
+        for (i = 0; i < response.length; i++) {
+          year.push(response[i].Cases);
+        }
+        console.log(year);
+      }
 
-    function displayGraph(data,chartNumber) {
-      var myChart = new Chart(chartNumber, {
-        type: "line",
-        data: {
-          labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          datasets: [
+      // depending on users choice in the dropdown, a timeframe function is ran
+      if (timePeriod == "1 Month") {
+        oneMonth();
+      } else if (timePeriod == "3 Month") {
+        threeMonths();
+      } else if (timePeriod == "6 Month") {
+        sixMonths();
+      } else {
+        oneYear();
+      }
+    });
+  }
+
+  // stockAPI();
+
+  // createGraph
+  var ctxOne = $("#ctxOne");
+  var ctxTwo = $("#ctxTwo");
+
+  displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
+
+  function displayGraph(data, chartNumber) {
+    var myChart = new Chart(chartNumber, {
+      type: "line",
+      data: {
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        datasets: [
+          {
+            data: data,
+            backgroundColor: "#69ea85",
+            borderColor: "#1abe3e",
+            borderWidth: 5,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
             {
-              data: data,
-              backgroundColor: "#69ea85",
-              borderColor: "#1abe3e",
-              borderWidth: 5,
+              gridLines: {
+                color: "gray",
+              },
             },
           ],
         },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                gridLines: {
-                  color: "gray",
-                },
-              },
-            ],
-          },
-        },
-      });
-    }
-})
+      },
+    });
+  }
+});
