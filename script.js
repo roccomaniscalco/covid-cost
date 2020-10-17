@@ -14,7 +14,7 @@ $(document).ready(function(){
         stockLevel = $(this).parent().find("#stockPoint").val();
         stockName = $(this).parent().find("#stockInput").val();
         timePeriod = $(this).parent().find("#stockTime").val();
-        
+        covidAPI();
     })
     
     
@@ -91,17 +91,26 @@ $(document).ready(function(){
                 console.log(year);
             }
 
-            // oneMonth();
-            // threeMonths();
-            // sixMonths();
-            // oneYear();
+            if (timePeriod == "1 Month") {
+                oneMonth();
+            } else if (timePeriod == "3 Month") {
+                threeMonths();
+            } else if (timePeriod == "6 Month") {
+                sixMonths();
+            } else {
+                oneYear();
+            }
+            
+        
+            
+            
                
         });
     }
 
     stockAPI();
 
-    covidAPI();
+    
 
 
 
