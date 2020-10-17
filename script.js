@@ -1,8 +1,10 @@
 $(document).ready(function(){
     // iex api
-    function stockAPI(){
-        var stock = ["APPL","SNAP","IBM"]
-        var stocksUrl = "https://cloud.iexapis.com/stable/stock/"+ stock[1] +"/chart/1y/?token=pk_daa92b10b8a84ee7bf59805aa6b96c62";
+
+
+    function stockAPI(userStock){
+        // var stock = ["APPL","SNAP","IBM"]
+        var stocksUrl = "https://cloud.iexapis.com/stable/stock/"+ userStock +"/chart/" + userStock + "?token=pk_003e5773616f460893f388150fd82418";
             
         $.ajax({
             url: stocksUrl,
