@@ -13,7 +13,9 @@ $(document).ready(function(){
         stockLevel = $(this).parent().find("#stockPoint").val();
         stockName = $(this).parent().find("#stockInput").val();
         timePeriod = $(this).parent().find("#stockTime").val();
-        
+        // console.log($(this).parent().find("#stockInput").val());
+        // console.log($(this).parent().find("#stockPoint").val());
+        // console.log($(this).parent().find("#stockTime").val());
     })
     
     
@@ -53,8 +55,8 @@ $(document).ready(function(){
             });
     }
 
-    stockAPI();
+    // stockAPI();
 
-    covidAPI();
+    // covidAPI();
 
 })
