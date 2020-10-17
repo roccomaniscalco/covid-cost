@@ -22,6 +22,7 @@ $(document).ready(function(){
     
     // iex api
 
+
     function stockAPI(){
         var stock = ["APPL","GUSH","SNAP","IBM"];
         var range = ["1m","3m","6m","1y"];
