@@ -68,9 +68,11 @@ $(document).ready(function(){
             }
         })
     }
-    
+
+    // covid API
     function covidAPI(){
-        
+
+        // api link, with endpoint of cases per day
         var settings = {
             "url": "https://api.covid19api.com/total/country/united-states/status/confirmed?cases",
             "method": "GET",
@@ -78,8 +80,8 @@ $(document).ready(function(){
         };
     
         $.ajax(settings).done(function (response) {
-            // console.log(response);
-
+            
+            // pulls the amount of cases everyday for the last month
             function oneMonth(){
                 var month = [];
                 var monthData = [];
@@ -91,6 +93,8 @@ $(document).ready(function(){
                 }
                 console.log(monthData.reverse());
             }
+
+            // pulls the amount of cases everyday for the last 3 months
             function threeMonths(){
                 var three = [];
                 var threeData = [];
@@ -102,6 +106,8 @@ $(document).ready(function(){
                 }
                 console.log(threeData.reverse());
             }
+
+            // pulls the amount of cases everyday for the last 6 months
             function sixMonths(){
                 var six = [];
                 var sixData = [];
@@ -113,6 +119,8 @@ $(document).ready(function(){
                 }
                 console.log(sixData.reverse());
             }
+
+            // pulls data for all days of corona, starting on Jan 22, 2020 (first case)
             function oneYear(){
                 var year = [];
                 for (i=0;i<response.length;i++){
@@ -120,7 +128,8 @@ $(document).ready(function(){
                 }
                 console.log(year);
             }
-
+            
+            // depending on users choice in the dropdown, a timeframe function is ran
             if (timePeriod == "1 Month") {
                 oneMonth();
             } else if (timePeriod == "3 Month") {
@@ -129,16 +138,56 @@ $(document).ready(function(){
                 sixMonths();
             } else {
                 oneYear();
-            }
-            
-        
-            
-            
-               
+            }     
         });
     }
 
     // stockAPI();
 
+    // createGraph
+    var ctxOne = $("#ctxOne");
+    var ctxTwo = $("#ctxTwo");
 
+    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxTwo);
+
+    function displayGraph(data,chartNumber) {
+      var myChart = new Chart(chartNumber, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              data: data,
+              backgroundColor: "#69ea85",
+              borderColor: "#1abe3e",
+              borderWidth: 5,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "gray",
+                },
+              },
+            ],
+          },
+        },
+      });
+    }
 })
