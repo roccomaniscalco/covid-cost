@@ -34,7 +34,7 @@ $(document).ready(function(){
 
         console.log(stockName)
         console.log(stockLevel)
-        stockAPI(timeReplace)
+        stockAPI(stockName, timeReplace)
     })
   
     // modal
