@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function () {
   // JS Variables
 
@@ -20,6 +21,81 @@ $(document).ready(function () {
       timeReplace = timePeriod.replace("6 Month", "6m");
     } else if (timePeriod === "1 Year") {
       timeReplace = timePeriod.replace("1 Year", "1y");
+=======
+
+$(document).ready(function(){
+    // JS Variables
+
+    var stockLevel = "";
+    var stockName = "";
+    var timePeriod = "";
+
+
+
+    // event listener
+    $("#stockSubmitBtn").on("click", function(event){
+        event.preventDefault()
+        stockLevel = $(this).parent().find("#stockPoint").val();
+        stockName = $(this).parent().find("#stockInput").val();
+        timePeriod = $(this).parent().find("#stockTime").val();
+
+
+        if(timePeriod === "1 Month"){
+            var timeReplace = timePeriod.replace("1 Month", "1m")
+        }else if (timePeriod === "3 Month"){
+            timeReplace = timePeriod.replace("3 Month", "3m")
+        }else if (timePeriod === "6 Month"){
+            timeReplace = timePeriod.replace("6 Month", "6m")
+        }else if (timePeriod === "1 Year"){
+            timeReplace = timePeriod.replace("1 Year", "1y")
+        }
+
+        console.log(timeReplace)
+
+
+        covidAPI();
+
+
+
+        console.log(stockName)
+        console.log(stockLevel)
+        stockAPI(timeReplace)
+        
+
+
+    })
+    // modal
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+    
+    
+    
+    
+    
+    // iex api
+
+    function stockAPI(userStock){
+
+        var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tsk_91ce3ae3fe794e6db9ebe0705266abf6";
+            
+        $.ajax({
+            url: stocksUrl,
+            method: "GET",
+        }).then(function(response){
+            console.log(response);
+            for(i=0;i<response.length;i++){
+                // console.log(response[i].date +" $"+ response[i].close);
+                if(stockLevel === "Open"){
+                    console.log(response[i].open)
+                }else if(stockLevel === "Closing"){
+                    console.log(response[i].close)
+                }else if(stockLevel === "High"){
+                    console.log(response[i].high)
+                }
+            }
+        })
+>>>>>>> c1ea6c2... added disclaimer modole
     }
 
     console.log(timeReplace);
