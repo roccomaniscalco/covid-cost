@@ -144,6 +144,7 @@ $(document).ready(function(){
     var ctxOne = $("#ctxOne");
     var ctxTwo = $("#ctxTwo");
 
+    displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxOne);
     displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12],ctxTwo);
 
     function displayGraph(data,chartNumber) {
@@ -174,16 +175,29 @@ $(document).ready(function(){
           ],
         },
         options: {
-          scales: {
-            yAxes: [
-              {
-                gridLines: {
-                  color: "gray",
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    color: "gray",
+                  },
+                  ticks : {
+                      fontColor: "whitesmoke"
+                    },
                 },
-              },
-            ],
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                      display: false
+                    },
+                  ticks : {
+                      fontColor: "whitesmoke"
+                    },
+                },  
+              ]
+            },
           },
-        },
-      });
-    }
-})
+        });
+      }
+  })
