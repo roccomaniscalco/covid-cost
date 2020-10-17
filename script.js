@@ -27,17 +27,9 @@ $(document).ready(function(){
     
     // iex api
 
-<<<<<<< HEAD
     function stockAPI(userStock){
 
         var stocksUrl = "https://sandbox.iexapis.com/stable/stock/AAPL/chart/"+userStock+"/?token=Tpk_66abe4f9dd4941ad8eee2c8005748eb3 ";
-=======
-
-    function stockAPI(){
-        var stock = ["APPL","GUSH","SNAP","IBM"];
-        var range = ["1m","3m","6m","1y"];
-        var stocksUrl = "https://cloud.iexapis.com/stable/stock/"+ stock[1] +"/chart/"+range[2]+"/?token=pk_daa92b10b8a84ee7bf59805aa6b96c62";
->>>>>>> 52b26c04e5dd78ab6a0f53cc6cad381b28dbb4b6
             
         $.ajax({
             url: stocksUrl,
