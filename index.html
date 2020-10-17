@@ -27,8 +27,14 @@
     <!-- JumboTron -->
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-        <h1 class="display-4">Welcome to our app</h1>
-        <p class="lead">Some current information is:</p>
+        <h1 class="display-4">Welcome to our application</h1>
+        <p class="lead">We are here to help you see the correlation between a chosen stock and Covid case rates.</p>
+        <ul><p>How to Use:</p>
+        <li>Choose your stock recording point</li>
+        <li>Enter the stock symbol. IE Coca-Cola is KO. You can search for a list <a href="https://www.marketwatch.com/tools/quotes/lookup.asp" target="_blank" class="marketwatch">here</a>. </li>
+        <li>Select your time frame</li>
+        <li>Submit and observe</li>
+      </ul>
       </div>
     </div>
     <!-- Buttons -->
@@ -41,21 +47,21 @@
           <form>
             <div class="form-row align-items-center">
               <div class="col-auto">
-                <select class="form-control" id="stockPoint">
+                <select class="form-control" id="stockPoint" placeholder="Stock Point">
                   <option>Open</option>
                   <option>High</option>
                   <option>Closing</option>
                 </select>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control" id="stockInput" placeholder="name@example.com">
+                <input type="email" class="form-control" id="stockInput" placeholder="Stock ID">
               </div>
               <div class="col-auto">
-                <select class="form-control" id="stockTime">
+                <select class="form-control" id="stockTime" placeholder="Period">
                   <option>1 Month</option>
                   <option>3 Month</option>
                   <option>6 Month</option>
-                  <option>1 year</option>
+                  <option>1 Year</option>
                 </select>
               </div>
               <div class="col-auto" id="stockSubmitBtn">
@@ -72,7 +78,7 @@
     <!-- Graph 1 -->
     <div class="container graphBlock" id="graphOneContainer">
       <div class="row">
-        <h2>Graph One Header</h2>
+        <h2>Covid Cases Over Time</h2>
       </div>
       <div class="row">
         <div class="col-md-8">
@@ -93,7 +99,7 @@
     <!-- Graph 2 -->
     <div class="container graphBlock" id="graphTwoContainer">
       <div class="row">
-        <h2>Graph 2 Header</h2>
+        <h2>Stock Prices Over Time</h2>
       </div>
       <div class="row">
         <div class="col-md-8">Graph 2 goes here</div>
