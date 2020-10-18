@@ -15,6 +15,7 @@ $(document).ready(function(){
         timePeriod = $(this).parent().find("#stockTime").val();
 
 
+    // Converting the user dropdown selection to the needed value for the API call requirements
         if(timePeriod === "1 Month"){
             var timeReplace = timePeriod.replace("1 Month", "1m")
         }else if (timePeriod === "3 Month"){
@@ -59,16 +60,35 @@ $(document).ready(function(){
       method: "GET",
     }).then(function (response) {
       console.log(response);
-      for (i = 0; i < response.length; i++) {
-        // console.log(response[i].date +" $"+ response[i].close);
+
+      // Creating empty arrays to later push response to based on user validation
+        var stockLevelArray = [];
+        var stockData;
+      
+      // If stock level is open push the response into the stockLevelArray
         if (stockLevel === "Open") {
-          console.log(response[i].open);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].open
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray)
+
+      // If stock level is closing push the response into the stockLevelArray
         } else if (stockLevel === "Closing") {
-          console.log(response[i].close);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].close
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray);
+      
+      // If stock level is high push the response into the stockLevelArray
         } else if (stockLevel === "High") {
-          console.log(response[i].high);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].high
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray);
         }
-      }
     });
   }
 
