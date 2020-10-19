@@ -5,7 +5,8 @@ $(document).ready(function(){
     var stockName = "";
     var timePeriod = "";
 
-
+    var covidData = []
+  
 
     // event listener
     $("#stockSubmitBtn").on("click", function(event){
@@ -71,7 +72,8 @@ $(document).ready(function(){
             stockData = response[i].open
             stockLevelArray.push(stockData)
           }
-          console.log(stockLevelArray)
+          console.log(stockLevelArray);
+        
 
       // If stock level is closing push the response into the stockLevelArray
         } else if (stockLevel === "Closing") {
@@ -80,14 +82,16 @@ $(document).ready(function(){
             stockLevelArray.push(stockData)
           }
           console.log(stockLevelArray);
+          
       
       // If stock level is high push the response into the stockLevelArray
         } else if (stockLevel === "High") {
           for(var i = 0; i < response.length; i++){
             stockData = response[i].high
-            stockLevelArray.push(stockData)
+            stockLevelArray.price.push(stockData)
           }
           console.log(stockLevelArray);
+         
         }
     });
   }
@@ -103,52 +107,68 @@ $(document).ready(function(){
     };
 
     $.ajax(settings).done(function (response) {
+      console.log(response);
       // pulls the amount of cases everyday for the last month
       function oneMonth() {
         var month = [];
-        var monthData = [];
+        covidData = [];
         for (i = 1; i <= 30; i++) {
           month.push(response.length - i);
         }
         for (i = 0; i < month.length; i++) {
-          monthData.push(response[month[i]].Cases);
+          covidData.push({
+            date: response[month[i]].Date,
+            cases: response[month[i]].Cases
+          })
         }
-        console.log(monthData.reverse());
+        covidData = covidData.reverse();
+        console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 3 months
       function threeMonths() {
         var three = [];
-        var threeData = [];
+        covidData = [];
         for (i = 1; i <= 90; i++) {
           three.push(response.length - i);
         }
         for (i = 0; i < three.length; i++) {
-          threeData.push(response[three[i]].Cases);
+          covidData.push({
+            date: response[three[i]].Date,
+            cases: response[three[i]].Cases
+          })
         }
-        console.log(threeData.reverse());
+        covidData = covidData.reverse();
+        console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 6 months
       function sixMonths() {
         var six = [];
-        var sixData = [];
+        covidData = [];
         for (i = 1; i <= 180; i++) {
           six.push(response.length - i);
         }
         for (i = 0; i < six.length; i++) {
-          sixData.push(response[six[i]].Cases);
+          covidData.push({
+            date: response[six[i]].Date,
+            cases: response[six[i]].Cases
+          })
         }
-        console.log(sixData.reverse());
+        covidData = covidData.reverse();
+        console.log(covidData);
       }
 
       // pulls data for all days of corona, starting on Jan 22, 2020 (first case)
       function oneYear() {
-        var year = [];
+        covidData = [];
         for (i = 0; i < response.length; i++) {
-          year.push(response[i].Cases);
+          covidData.push({
+            date: response[i].Date,
+            cases: response[i].Cases
+          })
         }
-        console.log(year);
+        console.log(covidData);
       }
 
       // depending on users choice in the dropdown, a timeframe function is ran
