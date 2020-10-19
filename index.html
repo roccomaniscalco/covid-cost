@@ -22,7 +22,7 @@
   <body>
     <!-- NavBar -->
     <nav class="navbar navbar-light bg-dark">
-      <span class="navbar-text h2"> Covid Blows </span>
+      <span class="navbar-text h2"> Covid Cost Analysis </span>
     </nav>
     <!-- JumboTron -->
     <div class="jumbotron jumbotron-fluid">
@@ -32,8 +32,8 @@
           We are here to help you see the correlation between a chosen stock and
           Covid case rates.
         </p>
+        <h3>How to Use:</h3>
         <ul>
-          <p>How to Use:</p>
           <li>Choose your stock recording point</li>
           <li>
             Enter the stock symbol. IE Coca-Cola is KO. You can search for a
@@ -104,20 +104,20 @@
     <!-- Graph 1 -->
     <div class="container graphBlock" id="graphOneContainer">
       <div class="row">
-        <h2>Covid Cases Over Time</h2>
+        <h2 class="chartHeader">Covid Cases Over Time</h2>
       </div>
       <div class="row">
         <div class="col-md-8">
           <canvas id="ctxOne">graph 1 goes here</canvas>
         </div>
         <div class="col-md-4">
-          <h3>Graph one comments</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ex sed
-            ipsa? Harum, nobis praesentium ipsum optio doloribus iure
-            consectetur magni, dicta suscipit reprehenderit, perspiciatis
-            voluptas laboriosam aut deleniti eum.
-          </p>
+          <h3>Covid Graph Metrics</h3>
+          <ul>
+            <li id="covidMax">Max Value:</li>
+            <li id="covidMin">Min Value:</li>
+            <li id="covidAvg">Average Value</li>
+            <li id="covidStd">Standard Deviation:</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -125,20 +125,20 @@
     <!-- Graph 2 -->
     <div class="container graphBlock" id="graphTwoContainer">
       <div class="row">
-        <h2>Stock Prices Over Time</h2>
+        <h2 class="chartHeader" id="stockChartHead">Stock Prices Over Time</h2>
       </div>
       <div class="row">
         <div class="col-md-8">
           <canvas id="ctxTwo">graph 2 goes here</canvas>
         </div>
         <div class="col-md-4">
-          <h3>Graph two comments</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ex sed
-            ipsa? Harum, nobis praesentium ipsum optio doloribus iure
-            consectetur magni, dicta suscipit reprehenderit, perspiciatis
-            voluptas laboriosam aut deleniti eum.
-          </p>
+          <h3 id="stockChartComments">Stock Chart Metrics</h3>
+          <ul>
+            <li id="stockMax">Max Value:</li>
+            <li id="stockMin">Min Value:</li>
+            <li id="stockAvg">Average Value</li>
+            <li id="stockStd">Standard Deviation:</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -150,11 +150,12 @@
         <div class="col-sm-6">
           <div class="row">
             <!-- Button trigger modal -->
+            <!-- Button trigger modal -->
             <button
               type="button"
               class="btn btn-primary"
               data-toggle="modal"
-              data-target="#exampleModal"
+              data-target="#staticBackdrop"
             >
               Disclaimer
             </button>
@@ -162,7 +163,7 @@
             <!-- Modal -->
             <div
               class="modal fade"
-              id="disclaimerModal"
+              id="staticBackdrop"
               tabindex="-1"
               aria-labelledby="disclaimer"
               aria-hidden="true"
@@ -170,9 +171,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="disclaimerModal">
-                      Disclaimer
-                    </h5>
+                    <h5 class="modal-title" id="disclaimerModal">Disclaimer</h5>
                     <button
                       type="button"
                       class="close"
