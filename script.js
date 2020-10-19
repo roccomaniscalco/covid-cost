@@ -15,6 +15,7 @@ $(document).ready(function(){
         timePeriod = $(this).parent().find("#stockTime").val();
 
 
+    // Converting the user dropdown selection to the needed value for the API call requirements
         if(timePeriod === "1 Month"){
             var timeReplace = timePeriod.replace("1 Month", "1m")
         }else if (timePeriod === "3 Month"){
@@ -34,7 +35,7 @@ $(document).ready(function(){
 
         console.log(stockName)
         console.log(stockLevel)
-        stockAPI(timeReplace)
+        stockAPI(stockName, timeReplace)
     })
   
     // modal
@@ -59,16 +60,35 @@ $(document).ready(function(){
       method: "GET",
     }).then(function (response) {
       console.log(response);
-      for (i = 0; i < response.length; i++) {
-        // console.log(response[i].date +" $"+ response[i].close);
+
+      // Creating empty arrays to later push response to based on user validation
+        var stockLevelArray = [];
+        var stockData;
+      
+      // If stock level is open push the response into the stockLevelArray
         if (stockLevel === "Open") {
-          console.log(response[i].open);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].open
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray)
+
+      // If stock level is closing push the response into the stockLevelArray
         } else if (stockLevel === "Closing") {
-          console.log(response[i].close);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].close
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray);
+      
+      // If stock level is high push the response into the stockLevelArray
         } else if (stockLevel === "High") {
-          console.log(response[i].high);
+          for(var i = 0; i < response.length; i++){
+            stockData = response[i].high
+            stockLevelArray.push(stockData)
+          }
+          console.log(stockLevelArray);
         }
-      }
     });
   }
 
@@ -150,6 +170,7 @@ $(document).ready(function(){
   var ctxOne = $("#ctxOne");
   var ctxTwo = $("#ctxTwo");
 
+  displayGraph([10, 9, 13, 4, 12, 13, 2, 18, 5, 10, 2, 6], ctxOne);
   displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
 
   function displayGraph(data, chartNumber) {
@@ -186,8 +207,21 @@ $(document).ready(function(){
               gridLines: {
                 color: "gray",
               },
+              ticks : {
+                fontColor: "whitesmoke"
+              }
             },
           ],
+          xAxes: [
+            {
+              gridLines: {
+                  display: false
+                },
+              ticks : {
+                  fontColor: "whitesmoke"
+                },
+            },  
+          ]
         },
       },
     });
