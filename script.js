@@ -4,6 +4,7 @@ $(document).ready(function () {
   var stockLevel = "";
   var stockName = "";
   var timePeriod = "";
+  var chartStockData = []
 
   // event listener
   $("#stockSubmitBtn").on("click", function (event) {
@@ -65,12 +66,16 @@ $(document).ready(function () {
       var stockLevelArray = [];
       var stockData;
 
+
       // If stock level is open push the response into the stockLevelArray
       if (stockLevel === "Open") {
         for (var i = 0; i < response.length; i++) {
           stockData = response[i].open;
           stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].open})
         }
+        console.log(chartStockData)
         console.log(stockLevelArray);
 
         // If stock level is closing push the response into the stockLevelArray
@@ -78,7 +83,11 @@ $(document).ready(function () {
         for (var i = 0; i < response.length; i++) {
           stockData = response[i].close;
           stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].close})
+
         }
+        console.log(chartStockData)
         console.log(stockLevelArray);
 
         // If stock level is high push the response into the stockLevelArray
@@ -86,7 +95,11 @@ $(document).ready(function () {
         for (var i = 0; i < response.length; i++) {
           stockData = response[i].high;
           stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].high})
+
         }
+        console.log(chartStockData)
         console.log(stockLevelArray);
       }
     });
