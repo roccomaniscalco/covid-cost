@@ -1,49 +1,49 @@
-$(document).ready(function(){
-    // JS Variables
+$(document).ready(function () {
+  // JS Variables
 
-    var stockLevel = "";
-    var stockName = "";
-    var timePeriod = "";
+  var stockLevel = "";
+  var stockName = "";
+  var timePeriod = "";
 
-
-
-    // event listener
-    $("#stockSubmitBtn").on("click", function(event){
-        event.preventDefault()
-        stockLevel = $(this).parent().find("#stockPoint").val();
-        stockName = $(this).parent().find("#stockInput").val();
-        timePeriod = $(this).parent().find("#stockTime").val();
-
+  // event listener
+  $("#stockSubmitBtn").on("click", function (event) {
+    event.preventDefault();
+    stockLevel = $(this).parent().find("#stockPoint").val();
+    stockName = $(this).parent().find("#stockInput").val().toUpperCase();
+    timePeriod = $(this).parent().find("#stockTime").val();
+    stockNameUpdate();
 
     // Converting the user dropdown selection to the needed value for the API call requirements
-        if(timePeriod === "1 Month"){
-            var timeReplace = timePeriod.replace("1 Month", "1m")
-        }else if (timePeriod === "3 Month"){
-            timeReplace = timePeriod.replace("3 Month", "3m")
-        }else if (timePeriod === "6 Month"){
-            timeReplace = timePeriod.replace("6 Month", "6m")
-        }else if (timePeriod === "1 Year"){
-            timeReplace = timePeriod.replace("1 Year", "1y")
-        }
+    if (timePeriod === "1 Month") {
+      var timeReplace = timePeriod.replace("1 Month", "1m");
+    } else if (timePeriod === "3 Month") {
+      timeReplace = timePeriod.replace("3 Month", "3m");
+    } else if (timePeriod === "6 Month") {
+      timeReplace = timePeriod.replace("6 Month", "6m");
+    } else if (timePeriod === "1 Year") {
+      timeReplace = timePeriod.replace("1 Year", "1y");
+    }
 
-        console.log(timeReplace)
+    console.log(timeReplace);
 
+    covidAPI();
 
-        covidAPI();
+    console.log(stockName);
+    console.log(stockLevel);
+    stockAPI(stockName, timeReplace);
+  });
 
+  // modal
+  $("#myModal").on("shown.bs.modal", function () {
+    $("#myInput").trigger("focus");
+  });
 
+  // Stock Chart comments name update
 
-        console.log(stockName)
-        console.log(stockLevel)
-        stockAPI(stockName, timeReplace)
-    })
-  
-    // modal
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-      })
-
-
+  function stockNameUpdate() {
+    $("#stockChartComments").text(stockName + " Chart Metrics");
+    $("#stockChartHead").text(stockName + " Prices over Time");
+  }
 
   // iex api
 
@@ -62,33 +62,33 @@ $(document).ready(function(){
       console.log(response);
 
       // Creating empty arrays to later push response to based on user validation
-        var stockLevelArray = [];
-        var stockData;
-      
-      // If stock level is open push the response into the stockLevelArray
-        if (stockLevel === "Open") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].open
-            stockLevelArray.push(stockData)
-          }
-          console.log(stockLevelArray)
+      var stockLevelArray = [];
+      var stockData;
 
-      // If stock level is closing push the response into the stockLevelArray
-        } else if (stockLevel === "Closing") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].close
-            stockLevelArray.push(stockData)
-          }
-          console.log(stockLevelArray);
-      
-      // If stock level is high push the response into the stockLevelArray
-        } else if (stockLevel === "High") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].high
-            stockLevelArray.push(stockData)
-          }
-          console.log(stockLevelArray);
+      // If stock level is open push the response into the stockLevelArray
+      if (stockLevel === "Open") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].open;
+          stockLevelArray.push(stockData);
         }
+        console.log(stockLevelArray);
+
+        // If stock level is closing push the response into the stockLevelArray
+      } else if (stockLevel === "Closing") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].close;
+          stockLevelArray.push(stockData);
+        }
+        console.log(stockLevelArray);
+
+        // If stock level is high push the response into the stockLevelArray
+      } else if (stockLevel === "High") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].high;
+          stockLevelArray.push(stockData);
+        }
+        console.log(stockLevelArray);
+      }
     });
   }
 
@@ -207,21 +207,21 @@ $(document).ready(function(){
               gridLines: {
                 color: "gray",
               },
-              ticks : {
-                fontColor: "whitesmoke"
-              }
+              ticks: {
+                fontColor: "whitesmoke",
+              },
             },
           ],
           xAxes: [
             {
               gridLines: {
-                  display: false
-                },
-              ticks : {
-                  fontColor: "whitesmoke"
-                },
-            },  
-          ]
+                display: false,
+              },
+              ticks: {
+                fontColor: "whitesmoke",
+              },
+            },
+          ],
         },
       },
     });
