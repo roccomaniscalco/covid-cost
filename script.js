@@ -7,14 +7,8 @@ $(document).ready(function () {
     var timePeriod = "";
 
     var covidData = []
-  
 
-    // event listener
-    $("#stockSubmitBtn").on("click", function(event){
-        event.preventDefault()
-        stockLevel = $(this).parent().find("#stockPoint").val();
-        stockName = $(this).parent().find("#stockInput").val();
-        timePeriod = $(this).parent().find("#stockTime").val();
+    var chartStockData = [];
 
 
   // event listener
@@ -79,9 +73,6 @@ $(document).ready(function () {
 
 
       // If stock level is open push the response into the stockLevelArray
-
-         
-
       if (stockLevel === "Open") {
         for (var i = 0; i < response.length; i++) {
           stockData = response[i].open;
