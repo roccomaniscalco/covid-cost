@@ -30,12 +30,12 @@ $(document).ready(function () {
       timeReplace = timePeriod.replace("1 Year", "1y");
     }
 
-    console.log(timeReplace);
+    // console.log(timeReplace);
 
     covidAPI();
 
-    console.log(stockName);
-    console.log(stockLevel);
+    // console.log(stockName);
+    // console.log(stockLevel);
     stockAPI(stockName, timeReplace);
   });
 
@@ -65,10 +65,11 @@ $(document).ready(function () {
       url: stocksUrl,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
 
       // Creating empty arrays to later push response to based on user validation
       var stockLevelArray = [];
+      var chartStockData = [];
       var stockData;
 
 
@@ -78,11 +79,11 @@ $(document).ready(function () {
           stockData = response[i].open;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].open})
+          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].open})
 
         }
-        console.log(chartStockData)
-        console.log(stockLevelArray);
+        // console.log(chartStockData)
+        // console.log(stockLevelArray);
 
         // If stock level is closing push the response into the stockLevelArray
       } else if (stockLevel === "Closing") {
@@ -90,7 +91,7 @@ $(document).ready(function () {
           stockData = response[i].close;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].close})
+          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].close})
 
         }
         console.log(chartStockData)
@@ -102,17 +103,17 @@ $(document).ready(function () {
           stockData = response[i].high;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].high})
+          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].high})
 
         }
-        console.log(chartStockData)
-        console.log(stockLevelArray);
+        // console.log(chartStockData)
+        // console.log(stockLevelArray);
       }
       // finding max Min
       $("#stockMax").text("Max Value: $"+Math.max(...stockLevelArray))
       $("#stockMin").text("Min Value: $"+Math.min(...stockLevelArray))
       // finding average
-      console.log("the min is " + Math.min(...stockLevelArray));
+      // console.log("the min is " + Math.min(...stockLevelArray));
       var total= 0;
       var avg = 0;
       var innerSumUpper =0;
@@ -128,6 +129,8 @@ $(document).ready(function () {
       }
       
       $("#stockStd").text("Standard Deviation: $"+Math.floor(Math.sqrt(innerSumUpper/stockLevelArray.length)*100)/100)
+
+      displayStockGraph(chartStockData);
     });
   }
 
@@ -142,7 +145,7 @@ $(document).ready(function () {
     };
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      // console.log(response);
       // pulls the amount of cases everyday for the last month
       function oneMonth() {
         var month = [];
@@ -152,12 +155,12 @@ $(document).ready(function () {
         }
         for (i = 0; i < month.length; i++) {
           covidData.push({
-            date: moment(response[month[i]].Date).format("ll"),
-            cases: response[month[i]].Cases
+            t: moment(response[month[i]].Date).format("ll"),
+            y: response[month[i]].Cases
           })
         }
         covidData = covidData.reverse();
-        console.log(covidData);
+        // console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 3 months
@@ -169,8 +172,8 @@ $(document).ready(function () {
         }
         for (i = 0; i < three.length; i++) {
           covidData.push({
-            date: moment(response[three[i]].Date).format("ll"),
-            cases: response[three[i]].Cases
+            t: moment(response[three[i]].Date).format("ll"),
+            y: response[three[i]].Cases
           })
         }
         covidData = covidData.reverse();
@@ -186,8 +189,8 @@ $(document).ready(function () {
         }
         for (i = 0; i < six.length; i++) {
           covidData.push({
-            date: moment(response[six[i]].Date).format("ll"),
-            cases: response[six[i]].Cases
+            t: moment(response[six[i]].Date).format("ll"),
+            y: response[six[i]].Cases
           })
         }
         covidData = covidData.reverse();
@@ -199,8 +202,8 @@ $(document).ready(function () {
         covidData = [];
         for (i = 0; i < response.length; i++) {
           covidData.push({
-            date: moment(response[i].Date).format("ll"),
-            cases: response[i].Cases
+            t: moment(response[i].Date).format("ll"),
+            y: response[i].Cases
           })
         }
         console.log(covidData);
@@ -216,20 +219,21 @@ $(document).ready(function () {
       } else {
         oneYear();
       }
+
+      displayCovidGraph(covidData);
     });
   }
 
-  // stockAPI();
+  var covidGraph;
+  var stockGraph;
 
-  // createGraph
-  var ctxOne = $("#ctxOne");
-  var ctxTwo = $("#ctxTwo");
+  //Display Covid Graph
+  function displayCovidGraph(data) {
 
-  displayGraph([{ t: new Date("2020-01-20") , y: 9}, { t: new Date("2020-02-10") , y: 3}, { t: new Date("2020-03-10") , y: 3}, { t: new Date("2020-04-5") , y: 5}], ctxOne);
-  //displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
+      if(covidGraph)
+        covidGraph.destroy();
 
-  function displayGraph(data, chartNumber) {
-    var myChart = new Chart(chartNumber, {
+    covidGraph = new Chart($("#ctxOne"), {
       type: "line", 
       data: {
         datasets: [
@@ -237,7 +241,7 @@ $(document).ready(function () {
             data: data,
             backgroundColor: "#69ea85",
             borderColor: "#1abe3e",
-            borderWidth: 5,
+            borderWidth: 4,
           },
         ],
       },
@@ -257,7 +261,57 @@ $(document).ready(function () {
             {
               type: "time",
               time: {
-                unit: "day",
+                displayFormats: {
+                  month: "MMM YYYY"
+                  }
+                },
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                fontColor: "whitesmoke",
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
+  //Display Stock Graph
+  function displayStockGraph(data) {
+
+    if(stockGraph)
+      stockGraph.destroy();
+
+    stockGraph = new Chart($("#ctxTwo"), {
+      type: "line", 
+      data: {
+        datasets: [
+          {
+            data: data,
+            backgroundColor: "#69ea85",
+            borderColor: "#1abe3e",
+            borderWidth: 4,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                color: "gray",
+              },
+              ticks: {
+                fontColor: "whitesmoke",
+              },
+            },
+          ],
+          xAxes: [
+            {
+              type: "time",
+              time: {
                 displayFormats: {
                   month: "MMM YYYY"
                   }
