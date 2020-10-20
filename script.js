@@ -53,7 +53,11 @@ $(document).ready(function () {
   }
 
   function covidTimeUpdate () {
-    $("#covidChartHead").text("Covid Cases Over " + timePeriod);
+
+
+
+    $("#covidChartHead").text("US Covid Cases Over " + timePeriod);
+
   }
   // iex api
 
@@ -125,7 +129,7 @@ $(document).ready(function () {
         total += parseInt(stockLevelArray[i]);
       }
       // finding standard Deviation
-      avg = total/stockLevelArray.length;
+      avg = Math.floor((total/stockLevelArray.length)*100)/100;
       $("#stockAvg").text("Average Value: $"+avg);
       for (i=0;i<stockLevelArray.length;i++){
         innerSumUpper+=(stockLevelArray[i]-avg)*(stockLevelArray[i]-avg);
