@@ -225,27 +225,13 @@ $(document).ready(function () {
   var ctxOne = $("#ctxOne");
   var ctxTwo = $("#ctxTwo");
 
-  displayGraph([10, 9, 13, 4, 12, 13, 2, 18, 5, 10, 2, 6], ctxOne);
-  displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
+  displayGraph([{ t: new Date("2020-01-20") , y: 9}, { t: new Date("2020-02-10") , y: 3}, { t: new Date("2020-03-10") , y: 3}, { t: new Date("2020-04-5") , y: 5}], ctxOne);
+  //displayGraph([12, 19, 3, 5, 2, 3, 20, 33, 9, 10, 11, 12], ctxTwo);
 
   function displayGraph(data, chartNumber) {
     var myChart = new Chart(chartNumber, {
-      type: "line",
+      type: "line", 
       data: {
-        labels: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
         datasets: [
           {
             data: data,
@@ -269,6 +255,13 @@ $(document).ready(function () {
           ],
           xAxes: [
             {
+              type: "time",
+              time: {
+                unit: "day",
+                displayFormats: {
+                  month: "MMM YYYY"
+                  }
+                },
               gridLines: {
                 display: false,
               },
