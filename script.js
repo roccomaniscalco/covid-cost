@@ -102,8 +102,8 @@ $(document).ready(function () {
           chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].close})
 
         }
-        console.log(chartStockData)
-        console.log(stockLevelArray);
+        // console.log(chartStockData)
+        // console.log(stockLevelArray);
 
         // If stock level is high push the response into the stockLevelArray
       } else if (stockLevel === "High") {
@@ -274,13 +274,26 @@ $(document).ready(function () {
         datasets: [
           {
             data: data,
-            backgroundColor: "#69ea85",
-            borderColor: "#1abe3e",
-            borderWidth: 4,
+            backgroundColor: "#00A90C60",
+            borderColor: "#00A90C",
+            borderWidth: 3,
           },
         ],
       },
       options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks:{
+            label: function(tooltipItem){
+              var label = tooltipItem.yLabel + "";
+              for(var j = label.length -3; j > 0; j -= 3)
+                label = label.substring(0,j) + "," + label.substring(j,label.length);
+              return label + " cases";
+            }
+          }
+        },
         scales: {
           yAxes: [
             {
@@ -289,6 +302,13 @@ $(document).ready(function () {
               },
               ticks: {
                 fontColor: "whitesmoke",
+                callback: function(value) {
+                  var val = value.toString();
+                  val = val.substring(0,2);
+                  if(val[1] != undefined)
+                    val = val[0] + "." + val[1];
+                  return val;
+                }
               },
             },
           ],
@@ -325,13 +345,24 @@ $(document).ready(function () {
         datasets: [
           {
             data: data,
-            backgroundColor: "#69ea85",
-            borderColor: "#1abe3e",
-            borderWidth: 4,
+            backgroundColor: "#00A90C60",
+            borderColor: "#00A90C",
+            borderWidth: 3,
           },
         ],
       },
       options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks:{
+            label: function(tooltipItem){
+              label = tooltipItem.yLabel + " USD";
+              return label;
+            }
+          }
+        },
         scales: {
           yAxes: [
             {
