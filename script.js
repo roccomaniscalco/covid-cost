@@ -18,6 +18,7 @@ $(document).ready(function () {
     stockName = $(this).parent().find("#stockInput").val().toUpperCase();
     timePeriod = $(this).parent().find("#stockTime").val();
     stockNameUpdate();
+    covidTimeUpdate();
 
     // Converting the user dropdown selection to the needed value for the API call requirements
     if (timePeriod === "1 Month") {
@@ -48,9 +49,12 @@ $(document).ready(function () {
 
   function stockNameUpdate() {
     $("#stockChartComments").text(stockName + " Chart Metrics");
-    $("#stockChartHead").text(stockName + " Prices over Time");
+    $("#stockChartHead").text(stockName + " Prices over " + timePeriod);
   }
 
+  function covidTimeUpdate () {
+    $(".chartHeader").text("Covid Cases Over " + timePeriod);
+  }
   // iex api
 
   function stockAPI(userStock, userTime) {
