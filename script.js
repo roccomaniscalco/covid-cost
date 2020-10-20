@@ -53,7 +53,11 @@ $(document).ready(function () {
   }
 
   function covidTimeUpdate () {
-    $(".chartHeader").text("US Covid Cases Over " + timePeriod);
+
+
+
+    $("#covidChartHead").text("US Covid Cases Over " + timePeriod);
+
   }
   // iex api
 
