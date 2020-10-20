@@ -89,6 +89,26 @@ $(document).ready(function () {
         }
         console.log(stockLevelArray);
       }
+      // finding max Min
+      $("#stockMax").text("Max Value: $"+Math.max(...stockLevelArray))
+      $("#stockMin").text("Min Value: $"+Math.min(...stockLevelArray))
+      // finding average
+      console.log("the min is " + Math.min(...stockLevelArray));
+      var total= 0;
+      var avg = 0;
+      var innerSumUpper =0;
+      for (i=0;i<stockLevelArray.length;i++){
+        total += parseInt(stockLevelArray[i]);
+      }
+      // finding standard Deviation
+      avg = total/stockLevelArray.length;
+      $("#stockAvg").text("Average Value: $"+Math.max(...stockLevelArray))
+      for (i=0;i<stockLevelArray.length;i++){
+        innerSumUpper+=(stockLevelArray[i]-avg)*(stockLevelArray[i]-avg);
+         
+      }
+      
+      $("#stockStd").text("Standard Deviation: $"+Math.floor(Math.sqrt(innerSumUpper/stockLevelArray.length)*100)/100)
     });
   }
 
