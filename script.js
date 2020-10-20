@@ -69,6 +69,7 @@ $(document).ready(function () {
 
       // Creating empty arrays to later push response to based on user validation
       var stockLevelArray = [];
+      var chartStockData = [];
       var stockData;
 
 
