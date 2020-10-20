@@ -126,7 +126,7 @@ $(document).ready(function () {
       }
       // finding standard Deviation
       avg = total/stockLevelArray.length;
-      $("#stockAvg").text("Average Value: $"+Math.max(...stockLevelArray))
+      $("#stockAvg").text("Average Value: $"+avg);
       for (i=0;i<stockLevelArray.length;i++){
         innerSumUpper+=(stockLevelArray[i]-avg)*(stockLevelArray[i]-avg);
          
@@ -147,7 +147,7 @@ $(document).ready(function () {
       method: "GET",
       timeout: 0,
     };
-
+    var covidNums = [];
     $.ajax(settings).done(function (response) {
       // console.log(response);
       // pulls the amount of cases everyday for the last month
@@ -164,7 +164,7 @@ $(document).ready(function () {
           })
         }
         covidData = covidData.reverse();
-        // console.log(covidData);
+        console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 3 months
@@ -225,6 +225,33 @@ $(document).ready(function () {
       }
 
       displayCovidGraph(covidData);
+      // covid Metrics
+      for (i=0;i<covidData.length;i++){
+        var newCaseNum = covidData[i].y;
+        covidNums.push(newCaseNum);
+        
+      }
+      console.log(covidNums);
+      // finding covid max
+      $("#covidMax").text("Max Value: "+Math.max(...covidNums));
+      // finding covid min
+      $("#covidMin").text("Min Value: "+Math.min(...covidNums));
+      // finding avg
+      var total= 0;
+      var avg = 0;
+      var innerSumUpper =0;
+      for (i=0;i<covidNums.length;i++){
+        total += parseInt(covidNums[i]);
+      }
+      avg=Math.floor(total/covidNums.length);
+      $("#covidAvg").text("Average Value: "+avg);
+      // finding standard Deviation
+      for (i=0;i<covidNums.length;i++){
+        innerSumUpper+=(covidNums[i]-avg)*(covidNums[i]-avg);
+         
+      }
+      $("#covidStd").text("Standard Deviation: "+Math.floor(Math.sqrt(innerSumUpper/covidNums.length)*100)/100)
+
     });
   }
 
