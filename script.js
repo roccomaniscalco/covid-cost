@@ -152,7 +152,7 @@ $(document).ready(function () {
         }
         for (i = 0; i < month.length; i++) {
           covidData.push({
-            date: response[month[i]].Date,
+            date: moment(response[month[i]].Date).format("ll"),
             cases: response[month[i]].Cases
           })
         }
@@ -169,7 +169,7 @@ $(document).ready(function () {
         }
         for (i = 0; i < three.length; i++) {
           covidData.push({
-            date: response[three[i]].Date,
+            date: moment(response[three[i]].Date).format("ll"),
             cases: response[three[i]].Cases
           })
         }
@@ -186,7 +186,7 @@ $(document).ready(function () {
         }
         for (i = 0; i < six.length; i++) {
           covidData.push({
-            date: response[six[i]].Date,
+            date: moment(response[six[i]].Date).format("ll"),
             cases: response[six[i]].Cases
           })
         }
@@ -199,7 +199,7 @@ $(document).ready(function () {
         covidData = [];
         for (i = 0; i < response.length; i++) {
           covidData.push({
-            date: response[i].Date,
+            date: moment(response[i].Date).format("ll"),
             cases: response[i].Cases
           })
         }
