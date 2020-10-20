@@ -1,5 +1,6 @@
-$(document).ready(function(){
-    // JS Variables
+$(document).ready(function () {
+  // JS Variables
+
 
     var stockLevel = "";
     var stockName = "";
@@ -16,35 +17,45 @@ $(document).ready(function(){
         timePeriod = $(this).parent().find("#stockTime").val();
 
 
+  // event listener
+  $("#stockSubmitBtn").on("click", function (event) {
+    event.preventDefault();
+    stockLevel = $(this).parent().find("#stockPoint").val();
+    stockName = $(this).parent().find("#stockInput").val().toUpperCase();
+    timePeriod = $(this).parent().find("#stockTime").val();
+    stockNameUpdate();
+
     // Converting the user dropdown selection to the needed value for the API call requirements
-        if(timePeriod === "1 Month"){
-            var timeReplace = timePeriod.replace("1 Month", "1m")
-        }else if (timePeriod === "3 Month"){
-            timeReplace = timePeriod.replace("3 Month", "3m")
-        }else if (timePeriod === "6 Month"){
-            timeReplace = timePeriod.replace("6 Month", "6m")
-        }else if (timePeriod === "1 Year"){
-            timeReplace = timePeriod.replace("1 Year", "1y")
-        }
+    if (timePeriod === "1 Month") {
+      var timeReplace = timePeriod.replace("1 Month", "1m");
+    } else if (timePeriod === "3 Month") {
+      timeReplace = timePeriod.replace("3 Month", "3m");
+    } else if (timePeriod === "6 Month") {
+      timeReplace = timePeriod.replace("6 Month", "6m");
+    } else if (timePeriod === "1 Year") {
+      timeReplace = timePeriod.replace("1 Year", "1y");
+    }
 
-        console.log(timeReplace)
+    console.log(timeReplace);
 
+    covidAPI();
 
-        covidAPI();
+    console.log(stockName);
+    console.log(stockLevel);
+    stockAPI(stockName, timeReplace);
+  });
 
+  // modal
+  $("#myModal").on("shown.bs.modal", function () {
+    $("#myInput").trigger("focus");
+  });
 
+  // Stock Chart comments name update
 
-        console.log(stockName)
-        console.log(stockLevel)
-        stockAPI(stockName, timeReplace)
-    })
-  
-    // modal
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-      })
-
-
+  function stockNameUpdate() {
+    $("#stockChartComments").text(stockName + " Chart Metrics");
+    $("#stockChartHead").text(stockName + " Prices over Time");
+  }
 
   // iex api
 
@@ -63,36 +74,69 @@ $(document).ready(function(){
       console.log(response);
 
       // Creating empty arrays to later push response to based on user validation
-        var stockLevelArray = [];
-        var stockData;
-      
-      // If stock level is open push the response into the stockLevelArray
-        if (stockLevel === "Open") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].open
-            stockLevelArray.push(stockData)
-          }
-          console.log(stockLevelArray);
-        
+      var stockLevelArray = [];
+      var stockData;
 
-      // If stock level is closing push the response into the stockLevelArray
-        } else if (stockLevel === "Closing") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].close
-            stockLevelArray.push(stockData)
-          }
-          console.log(stockLevelArray);
-          
-      
-      // If stock level is high push the response into the stockLevelArray
-        } else if (stockLevel === "High") {
-          for(var i = 0; i < response.length; i++){
-            stockData = response[i].high
-            stockLevelArray.price.push(stockData)
-          }
-          console.log(stockLevelArray);
+
+      // If stock level is open push the response into the stockLevelArray
+
          
+
+      if (stockLevel === "Open") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].open;
+          stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].open})
+
         }
+        console.log(chartStockData)
+        console.log(stockLevelArray);
+
+        // If stock level is closing push the response into the stockLevelArray
+      } else if (stockLevel === "Closing") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].close;
+          stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].close})
+
+        }
+        console.log(chartStockData)
+        console.log(stockLevelArray);
+
+        // If stock level is high push the response into the stockLevelArray
+      } else if (stockLevel === "High") {
+        for (var i = 0; i < response.length; i++) {
+          stockData = response[i].high;
+          stockLevelArray.push(stockData);
+
+          chartStockData.push({date: moment(response[i].date).format("ll"), stockData: response[i].high})
+
+        }
+        console.log(chartStockData)
+        console.log(stockLevelArray);
+      }
+      // finding max Min
+      $("#stockMax").text("Max Value: $"+Math.max(...stockLevelArray))
+      $("#stockMin").text("Min Value: $"+Math.min(...stockLevelArray))
+      // finding average
+      console.log("the min is " + Math.min(...stockLevelArray));
+      var total= 0;
+      var avg = 0;
+      var innerSumUpper =0;
+      for (i=0;i<stockLevelArray.length;i++){
+        total += parseInt(stockLevelArray[i]);
+      }
+      // finding standard Deviation
+      avg = total/stockLevelArray.length;
+      $("#stockAvg").text("Average Value: $"+Math.max(...stockLevelArray))
+      for (i=0;i<stockLevelArray.length;i++){
+        innerSumUpper+=(stockLevelArray[i]-avg)*(stockLevelArray[i]-avg);
+         
+      }
+      
+      $("#stockStd").text("Standard Deviation: $"+Math.floor(Math.sqrt(innerSumUpper/stockLevelArray.length)*100)/100)
     });
   }
 
@@ -227,21 +271,21 @@ $(document).ready(function(){
               gridLines: {
                 color: "gray",
               },
-              ticks : {
-                fontColor: "whitesmoke"
-              }
+              ticks: {
+                fontColor: "whitesmoke",
+              },
             },
           ],
           xAxes: [
             {
               gridLines: {
-                  display: false
-                },
-              ticks : {
-                  fontColor: "whitesmoke"
-                },
-            },  
-          ]
+                display: false,
+              },
+              ticks: {
+                fontColor: "whitesmoke",
+              },
+            },
+          ],
         },
       },
     });
