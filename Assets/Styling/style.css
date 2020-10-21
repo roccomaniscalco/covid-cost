@@ -7,7 +7,7 @@
     border-top-style: solid;
     border-top-color: lightslategray;
     border-top-width: 5px;
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
   }
@@ -20,7 +20,9 @@
   }
 
   #disclaimer-btn{
+    height: 40px;
     margin-left: 20px;
+    margin-top: 5px;
   }
 
   .navbar-light .navbar-text {
