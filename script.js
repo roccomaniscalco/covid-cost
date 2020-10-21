@@ -50,7 +50,7 @@ $(document).ready(function () {
   // Stock Chart comments name update
 
   function stockNameUpdate() {
-    $("#stockChartComments").text(stockName + " Chart Metrics");
+    $("#stockChartComments").text(stockName + " Chart Metrics in Millions");
     $("#stockChartHead").text(stockName + " Prices over " + timePeriod);
   }
 
