@@ -1,4 +1,4 @@
-.footer {
+  .footer {
     flex-shrink: 0;
     background-color: #343a40;
     min-height: 40px;
@@ -8,11 +8,19 @@
     border-top-color: lightslategray;
     border-top-width: 5px;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
   }
 
-  .copyright {
-    text-align: right;
+  #copyright {
+    margin: 0px;
+    display: flex;
+    align-content: center;
+    line-height:50px;
+  }
 
+  #disclaimer-btn{
+    margin-left: 20px;
   }
 
   .navbar-light .navbar-text {
@@ -23,6 +31,13 @@
     display: block;
   
   }
+
+  .navbar-text  {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+  }
+
   body{
       background-color: #282828;
       color: whitesmoke;
@@ -36,15 +51,24 @@
         margin-top: 30px;
     }
     #stockInput {
-        padding-top: 6px;
-        margin-top: 15px;
+        padding-top: 8px;
+        margin-top: 16px;
+    }
+
+    #stockSubmitBtn {
+      margin-top: 7px;
+      padding-bottom: 0px;
+    }
+
+    .stock-submit{
+      margin: 0px 0px 0px 6px;
     }
 
     #buttonBlock {
         padding-top: 6px;
     }
     .btn {
-      margin-top: 6px;
+      margin: 0px;
       background-color:#00A90C60;
       color: whitesmoke;
       border-color: #00A90C;
@@ -69,4 +93,9 @@
     .chartHeader {
       padding: 0px 0px 10px 15px;
     }
-   
+
+    img{
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+    }

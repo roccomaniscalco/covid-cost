@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Covid vs Stocks</title>
+    <title>Covid Cost</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -17,12 +17,17 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="Assets/Styling/style.css" />
+    <link rel="icon" 
+      type="image/png" 
+      href="Images/statistics.png">
   </head>
 
   <body>
     <!-- NavBar -->
     <nav class="navbar navbar-light bg-dark">
-      <span class="navbar-text h2"> Covid Cost Analysis </span>
+      <span class="navbar-text h2"> 
+        <img src="Images/statistics.png" alt="Covid Cost Logo" id="header-logo"> Covid Cost 
+      </span>
     </nav>
     <!-- JumboTron -->
     <div class="jumbotron jumbotron-fluid">
@@ -53,9 +58,6 @@
     <!-- Buttons -->
     <div class="container">
       <div class="row">
-        <h3>Select your options here</h3>
-      </div>
-      <div class="row">
         <div>
           <form>
             <div class="form-row align-items-center">
@@ -72,7 +74,6 @@
               </div>
               <div class="form-group">
                 <input
-                  type="email"
                   class="form-control"
                   id="stockInput"
                   placeholder="Stock ID"
@@ -147,67 +148,62 @@
 
     <!-- Footer -->
 
-    <footer class="footer">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="row">
-            <!-- Button trigger modal -->
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn"
-              data-toggle="modal"
-              data-target="#staticBackdrop"
-            >
-              Disclaimer
-            </button>
+    <footer class="footer">  
+      <p id="copyright"> 
+        <img src="./Images/statistics.png" alt="Covid Cost Logo">
+      &#169; Copyright 2020 Our Team</p>
+      <!-- Button trigger modal -->
+      <!-- Button trigger modal -->
+      <button
+      type="button"
+      class="btn"
+      data-toggle="modal"
+      data-target="#staticBackdrop"
+      id="disclaimer-btn"
+      >
+        Disclaimer
+      </button>
 
-            <!-- Modal -->
-            <div
-              class="modal fade"
-              id="staticBackdrop"
-              tabindex="-1"
-              aria-labelledby="disclaimer"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="disclaimerModal">Disclaimer</h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p>
-                      This application is strictly for the use of observing
-                      stock and Covid data. This should not be considered
-                      financial advice. The responsibility and liability of any
-                      financial decision made after viewing this data rest on
-                      the application user.
-                    </p>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn"
-                      data-dismiss="modal"
-                    >
-                      UnderStood
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        tabindex="-1"
+        aria-labelledby="disclaimer"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="disclaimerModal">Disclaimer</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                This application is strictly for the use of observing
+                stock and Covid data. This should not be considered
+                financial advice. The responsibility and liability of any
+                financial decision made after viewing this data rests on
+                the application user.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn"
+                data-dismiss="modal"
+              >
+                Understood
+              </button>
             </div>
           </div>
-        </div>
-        <div class="col-sm-6 copyright">
-          <p>&#169; Copyright 2020 Our Team</p>
         </div>
       </div>
     </footer>

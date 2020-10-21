@@ -1,6 +1,8 @@
 $(document).ready(function () {
   // JS Variables
 
+    displayStockGraph();
+    displayCovidGraph();
 
     var stockLevel = "";
     var stockName = "";
