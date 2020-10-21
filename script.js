@@ -50,7 +50,7 @@ $(document).ready(function () {
   // Stock Chart comments name update
 
   function stockNameUpdate() {
-    $("#stockChartComments").text(stockName + " Chart Metrics in Millions");
+    $("#stockChartComments").text(stockName + " Chart Metrics");
     $("#stockChartHead").text(stockName + " Prices over " + timePeriod);
   }
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
 
 
 
-    $("#covidChartHead").text("US Covid Cases Over " + timePeriod);
+    $("#covidChartHead").text("US Covid Cases Over " + timePeriod + " in Millions");
 
   }
   // iex api
