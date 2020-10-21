@@ -45,12 +45,18 @@
     }
     .btn {
       margin-top: 6px;
-      background-color:#004d00;
-      border-color: white;
+      background-color:#00A90C60;
+      color: whitesmoke;
+      border-color: #00A90C;
       }
     .btn:hover{
-      background-color: #343a40;
-      border-color: #004d00;
+      background-color: #00A90C30;
+      color: whitesmoke;
+      border-color: #00A90C;
+    }
+    .btn:active{
+      background-color: #00A90C30;
+      border-color: #00A90C;
     }
     .marketwatch {
       color: #343a40;
@@ -61,6 +67,6 @@
       border-color: whitesmoke;
       }
     .chartHeader {
-      padding-left: 40px;
+      padding: 0px 0px 10px 15px;
     }
    
