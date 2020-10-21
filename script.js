@@ -58,7 +58,7 @@ $(document).ready(function () {
 
 
 
-    $("#covidChartHead").text("US Covid Cases Over " + timePeriod);
+    $("#covidChartHead").text("US Covid Cases Over " + timePeriod + " in Millions");
 
   }
   // iex api
