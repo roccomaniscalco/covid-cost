@@ -51,14 +51,14 @@ $(document).ready(function () {
 
   function stockNameUpdate() {
     $("#stockChartComments").text(stockName + " Chart Metrics");
-    $("#stockChartHead").text(stockName + " Prices over " + timePeriod);
+    $("#stockChartHead").text(stockName + " Prices in USD Over " + timePeriod);
   }
 
   function covidTimeUpdate () {
 
 
 
-    $("#covidChartHead").text("US Covid Cases Over " + timePeriod + " in Millions");
+    $("#covidChartHead").text("US Covid Cases in Millions Over " + timePeriod);
 
   }
   // iex api
@@ -239,9 +239,9 @@ $(document).ready(function () {
       }
       console.log(covidNums);
       // finding covid max
-      $("#covidMax").text("Max Value: "+Math.max(...covidNums));
+      $("#covidMax").text("Max Value: "+ commify(Math.max(...covidNums)));
       // finding covid min
-      $("#covidMin").text("Min Value: "+Math.min(...covidNums));
+      $("#covidMin").text("Min Value: "+ commify(Math.min(...covidNums)));
       // finding avg
       var total= 0;
       var avg = 0;
@@ -250,15 +250,22 @@ $(document).ready(function () {
         total += parseInt(covidNums[i]);
       }
       avg=Math.floor(total/covidNums.length);
-      $("#covidAvg").text("Average Value: "+avg);
+      $("#covidAvg").text("Average Value: "+ commify(avg));
       // finding standard Deviation
       for (i=0;i<covidNums.length;i++){
         innerSumUpper+=(covidNums[i]-avg)*(covidNums[i]-avg);
          
       }
-      $("#covidStd").text("Standard Deviation: "+Math.floor(Math.sqrt(innerSumUpper/covidNums.length)*100)/100)
+      $("#covidStd").text("Standard Deviation: "+ commify(Math.floor(Math.sqrt(innerSumUpper/covidNums.length)*100)/100))
 
     });
+  }
+
+  function commify(num){
+    num = Math.round(num).toString()
+    for(var j = num.length -3; j > 0; j -= 3)
+      num = num.substring(0,j) + "," + num.substring(j,num.length);
+    return num;
   }
 
   var covidGraph;
