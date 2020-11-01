@@ -89,7 +89,7 @@ $(document).ready(function () {
           stockData = response[i].open;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].open})
+          chartStockData.push({t: moment(response[i].date), y: response[i].open})
 
         }
         // console.log(chartStockData)
@@ -101,7 +101,7 @@ $(document).ready(function () {
           stockData = response[i].close;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].close})
+          chartStockData.push({t: moment(response[i].date), y: response[i].close})
 
         }
         // console.log(chartStockData)
@@ -113,7 +113,7 @@ $(document).ready(function () {
           stockData = response[i].high;
           stockLevelArray.push(stockData);
 
-          chartStockData.push({t: moment(response[i].date).format("ll"), y: response[i].high})
+          chartStockData.push({t: moment(response[i].date), y: response[i].high})
 
         }
         // console.log(chartStockData)
@@ -165,12 +165,12 @@ $(document).ready(function () {
         }
         for (i = 0; i < month.length; i++) {
           covidData.push({
-            t: moment(response[month[i]].Date).format("ll"),
+            t: moment(response[month[i]].Date),
             y: response[month[i]].Cases
           })
         }
         covidData = covidData.reverse();
-        console.log(covidData);
+        // console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 3 months
@@ -182,12 +182,12 @@ $(document).ready(function () {
         }
         for (i = 0; i < three.length; i++) {
           covidData.push({
-            t: moment(response[three[i]].Date).format("ll"),
+            t: moment(response[three[i]].Date),
             y: response[three[i]].Cases
           })
         }
         covidData = covidData.reverse();
-        console.log(covidData);
+        // console.log(covidData);
       }
 
       // pulls the amount of cases everyday for the last 6 months
@@ -199,12 +199,12 @@ $(document).ready(function () {
         }
         for (i = 0; i < six.length; i++) {
           covidData.push({
-            t: moment(response[six[i]].Date).format("ll"),
+            t: moment(response[six[i]].Date),
             y: response[six[i]].Cases
           })
         }
         covidData = covidData.reverse();
-        console.log(covidData);
+        // console.log(covidData);
       }
 
       // pulls data for all days of corona, starting on Jan 22, 2020 (first case)
@@ -212,11 +212,11 @@ $(document).ready(function () {
         covidData = [];
         for (i = 0; i < response.length; i++) {
           covidData.push({
-            t: moment(response[i].Date).format("ll"),
+            t: moment(response[i].Date),
             y: response[i].Cases
           })
         }
-        console.log(covidData);
+        // console.log(covidData);
       }
 
       // depending on users choice in the dropdown, a timeframe function is ran
@@ -237,11 +237,11 @@ $(document).ready(function () {
         covidNums.push(newCaseNum);
         
       }
-      console.log(covidNums);
+      // console.log(covidNums);
       // finding covid max
-      $("#covidMax").text("Max Value: "+ commify(Math.max(...covidNums)));
+      $("#covidMax").text("Max Value: "+ commafy(Math.max(...covidNums)));
       // finding covid min
-      $("#covidMin").text("Min Value: "+ commify(Math.min(...covidNums)));
+      $("#covidMin").text("Min Value: "+ commafy(Math.min(...covidNums)));
       // finding avg
       var total= 0;
       var avg = 0;
@@ -250,18 +250,18 @@ $(document).ready(function () {
         total += parseInt(covidNums[i]);
       }
       avg=Math.floor(total/covidNums.length);
-      $("#covidAvg").text("Average Value: "+ commify(avg));
+      $("#covidAvg").text("Average Value: "+ commafy(avg));
       // finding standard Deviation
       for (i=0;i<covidNums.length;i++){
         innerSumUpper+=(covidNums[i]-avg)*(covidNums[i]-avg);
          
       }
-      $("#covidStd").text("Standard Deviation: "+ commify(Math.floor(Math.sqrt(innerSumUpper/covidNums.length)*100)/100))
+      $("#covidStd").text("Standard Deviation: "+ commafy(Math.floor(Math.sqrt(innerSumUpper/covidNums.length)*100)/100))
 
     });
   }
 
-  function commify(num){
+  function commafy(num){
     num = Math.round(num).toString()
     for(var j = num.length -3; j > 0; j -= 3)
       num = num.substring(0,j) + "," + num.substring(j,num.length);
@@ -296,10 +296,11 @@ $(document).ready(function () {
         tooltips: {
           callbacks:{
             label: function(tooltipItem){
-              var label = tooltipItem.yLabel + "";
-              for(var j = label.length -3; j > 0; j -= 3)
-                label = label.substring(0,j) + "," + label.substring(j,label.length);
-              return label + " cases";
+              return commafy(parseInt(tooltipItem.yLabel)) + " cases";
+            },
+            title: function(tooltipItems){
+              var title = tooltipItems[0].xLabel;
+              return title.replace("8:00:00 pm","");
             }
           }
         },
